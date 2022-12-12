@@ -121,13 +121,6 @@ namespace SpeechRecognition
 
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //synthesizer.SetOutputToDefaultAudioDevice();
-            _synthesizer.Speak("");
-        }
-
         private void tmrSpeaking_Tick(object sender, EventArgs e)
         {
             if (RecTimeOut == 10)
@@ -140,6 +133,19 @@ namespace SpeechRecognition
                 startListening.RecognizeAsync(RecognizeMode.Multiple);
                 RecTimeOut = 0;
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            GetSupportedLanguagesRequest request = new GetSupportedLanguagesRequest();
+
+            request.Parent = "projects/translatespeech-371415";
+            //synthesizer.SetOutputToDefaultAudioDevice();
+            _synthesizer.Speak("");
+            //TC: TESTING
+            var client = TranslationServiceClient.Create();
+            var response = client.GetSupportedLanguagesAsync(request);
+            Console.WriteLine(response);
         }
     }
 }
